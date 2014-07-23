@@ -12,15 +12,17 @@ import java.util.Random;
  * @author otatarik
  */
 public class MatrixMult {
-    
-    private <T extends Number> T[][] createMatrix(int size){
+
+    private <T extends Number> T[][] createMatrix(int size, String type) {
         T[][] matrix = (T[][]) new Object[size][size];
-        Random rnd = new Random();
-        
+        Randomizer<Integer> rand = new Randomizer<Integer>(Randomizer.Type.Integer);
+
+        for (int i = 0; i < size; i++) {
+            
+        }
         return null;
     }
 
-    
     /**
      * @param args the command line arguments
      */
