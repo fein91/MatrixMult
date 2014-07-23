@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,48 +14,62 @@ import java.util.Random;
  */
 public class MatrixMult {
 
-    private <T extends Number> T[][] createMatrix(int size, String type) {
-        T[][] matrix = (T[][]) new Object[size][size];
-        Randomizer<Integer> rand = new Randomizer<Integer>(Randomizer.Type.Integer);
+    private final static int MAX_INT = 10000;
 
+    private static int[][] createMatrix(int size) {
+        Random rnd = new Random();
+        int[][] result = new int[size][size];
         for (int i = 0; i < size; i++) {
-            
+            for (int j = 0; j < size; j++) {
+                result[i][j] = rnd.nextInt(MAX_INT);
+            }
         }
-        return null;
+        return result;
+    }
+
+    private static int[][] mult(int[][] matrixA, int[][] matrixB) {
+        int size = matrixA.length;
+        int[][] result = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int k = 0; k < size; k++) {
+                    result[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        System.out.println("*******************");
+        for (int k = 0; k < matrix.length; k++) {
+            for (int l = 0; l < matrix.length; l++) {
+                System.out.print(matrix[k][l] + " ");
+            }
+            System.out.println("");
+        }
+        System.out.println("*******************");
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {1, 2, 3}};
-        int[][] matrixB = {{3, 2, 1}, {6, 5, 4}, {3, 2, 1}};
-        int[][] result = new int[3][3];
+//        int[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {1, 2, 3}};
+//        int[][] matrixB = {{3, 2, 1}, {6, 5, 4}, {3, 2, 1}};
+//        int[][] result = new int[3][3];
+        int size = 5;
+        int[][] a = createMatrix(size);
+        int[][] b = createMatrix(size);
+        int[][] result = new int[size][size];
 
-        for (int i = 0; i < matrixA.length; i++) {
-            for (int j = 0; j < matrixA.length; j++) {
-                result[i][j] = matrixA[i][0] * matrixB[0][j]
-                        + matrixA[i][1] * matrixB[1][j]
-                        + matrixA[i][2] * matrixB[2][j];
+        printMatrix(a);
+        printMatrix(b);
+        result = mult(a, b);
+        printMatrix(result);
 
-                System.out.print(matrixA[i][0] + "*" + matrixB[0][j]
-                        + "+" + matrixA[i][1] + "*" + matrixB[1][j]
-                        + "+" + matrixA[i][2] + "*" + matrixB[2][j] + " ");
-                //System.out.println("result[" + i + "][" + j + "]=" + result[i][j]);
-            }
-            System.out.println("");
-        }
-
-        for (int k = 0; k < result.length; k++) {
-            for (int l = 0; l < result.length; l++) {
-                System.out.print(result[k][l] + " ");
-            }
-            System.out.println("");
-        }
     }
-
 }
-
 // 1 2 3        3 2 1
 // 4 5 6        6 5 4
 // 1 2 3        3 2 1
